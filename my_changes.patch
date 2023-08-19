@@ -1,0 +1,150 @@
+diff --git a/app/views/layouts/application.html.erb b/app/views/layouts/application.html.erb
+index 0a26634..6f7ba77 100644
+--- a/app/views/layouts/application.html.erb
++++ b/app/views/layouts/application.html.erb
+@@ -1,4 +1,4 @@
+-kobayashi.ryota
++
+ <!DOCTYPE html>
+ <html>
+   <head>
+diff --git a/config/environments/development.rb b/config/environments/development.rb
+index 7a9f6c3..398926f 100644
+--- a/config/environments/development.rb
++++ b/config/environments/development.rb
+@@ -70,7 +70,7 @@ Rails.application.configure do
+   # Use an evented file watcher to asynchronously detect changes in source code,
+   # routes, locales, etc. This feature depends on the listen gem.
+   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+-
++  config.hosts.clear
+   # Uncomment if you wish to allow Action Cable access from any origin.
+   # config.action_cable.disable_request_forgery_protection = true
+ end
+diff --git a/config/routes.rb b/config/routes.rb
+index 54b04d7..762a4a4 100644
+--- a/config/routes.rb
++++ b/config/routes.rb
+@@ -1,4 +1,12 @@
+ Rails.application.routes.draw do
++  devise_for :admin, skip: [:registrations, :passwords] , controllers: {
++    sessions: "admin/sessions"
++  }
++  devise_for :customers,skip: [:passwords], controllers: {
++    registrations: "public/registrations",
++    sessions: 'public/sessions'
++  }
+   devise_for :users
+   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
++  
+ end
+diff --git a/db/schema.rb b/db/schema.rb
+index da7a3db..75a1588 100644
+--- a/db/schema.rb
++++ b/db/schema.rb
+@@ -10,7 +10,39 @@
+ #
+ # It's strongly recommended that you check this file into your version control system.
+ 
+-ActiveRecord::Schema.define(version: 2023_08_17_074933) do
++ActiveRecord::Schema.define(version: 2023_08_19_074749) do
++
++  create_table "admins", force: :cascade do |t|
++    t.string "email", default: "", null: false
++    t.string "encrypted_password", default: "", null: false
++    t.string "reset_password_token"
++    t.datetime "reset_password_sent_at"
++    t.datetime "remember_created_at"
++    t.datetime "created_at", precision: 6, null: false
++    t.datetime "updated_at", precision: 6, null: false
++    t.index ["email"], name: "index_admins_on_email", unique: true
++    t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
++  end
++
++  create_table "customers", force: :cascade do |t|
++    t.string "email", default: "", null: false
++    t.string "encrypted_password", default: "", null: false
++    t.string "last_name"
++    t.string "first_name"
++    t.string "last_name_kana"
++    t.string "first_name_kana"
++    t.string "address"
++    t.string "postcode"
++    t.string "telephon_number"
++    t.boolean "is_cancel_membership", default: false, null: false
++    t.string "reset_password_token"
++    t.datetime "reset_password_sent_at"
++    t.datetime "remember_created_at"
++    t.datetime "created_at", precision: 6, null: false
++    t.datetime "updated_at", precision: 6, null: false
++    t.index ["email"], name: "index_customers_on_email", unique: true
++    t.index ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true
++  end
+ 
+   create_table "users", force: :cascade do |t|
+     t.string "email", default: "", null: false
+diff --git a/package.json b/package.json
+index 5f16975..cb41309 100644
+--- a/package.json
++++ b/package.json
+@@ -2,6 +2,8 @@
+   "name": "work-github",
+   "private": true,
+   "dependencies": {
++    "@babel/plugin-proposal-private-methods": "^7.18.6",
++    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+     "@rails/actioncable": "^6.0.0",
+     "@rails/activestorage": "^6.0.0",
+     "@rails/ujs": "^6.0.0",
+diff --git a/yarn.lock b/yarn.lock
+index 50f71c7..cb24890 100644
+--- a/yarn.lock
++++ b/yarn.lock
+@@ -54,7 +54,7 @@
+     "@jridgewell/trace-mapping" "^0.3.17"
+     jsesc "^2.5.1"
+ 
+-"@babel/helper-annotate-as-pure@^7.22.5":
++"@babel/helper-annotate-as-pure@^7.18.6", "@babel/helper-annotate-as-pure@^7.22.5":
+   version "7.22.5"
+   resolved "https://registry.yarnpkg.com/@babel/helper-annotate-as-pure/-/helper-annotate-as-pure-7.22.5.tgz#e7f06737b197d580a01edf75d97e2c8be99d3882"
+   integrity sha512-LvBTxu8bQSQkcyKOU+a1btnNFQ1dMAd0R6PyW3arXes06F6QLWLIrd681bxRPIXlrMGR3XYnW9JyML7dP3qgxg==
+@@ -79,7 +79,7 @@
+     lru-cache "^5.1.1"
+     semver "^6.3.1"
+ 
+-"@babel/helper-create-class-features-plugin@^7.18.6", "@babel/helper-create-class-features-plugin@^7.22.5":
++"@babel/helper-create-class-features-plugin@^7.18.6", "@babel/helper-create-class-features-plugin@^7.21.0", "@babel/helper-create-class-features-plugin@^7.22.5":
+   version "7.22.10"
+   resolved "https://registry.yarnpkg.com/@babel/helper-create-class-features-plugin/-/helper-create-class-features-plugin-7.22.10.tgz#dd2612d59eac45588021ac3d6fa976d08f4e95a3"
+   integrity sha512-5IBb77txKYQPpOEdUdIhBx8VrZyDCQ+H82H0+5dX1TmuscP5vJKEE3cKurjtIw/vFwzbVH48VweE78kVDBrqjA==
+@@ -292,11 +292,29 @@
+     "@babel/plugin-syntax-object-rest-spread" "^7.8.3"
+     "@babel/plugin-transform-parameters" "^7.20.7"
+ 
++"@babel/plugin-proposal-private-methods@^7.18.6":
++  version "7.18.6"
++  resolved "https://registry.yarnpkg.com/@babel/plugin-proposal-private-methods/-/plugin-proposal-private-methods-7.18.6.tgz#5209de7d213457548a98436fa2882f52f4be6bea"
++  integrity sha512-nutsvktDItsNn4rpGItSNV2sz1XwS+nfU0Rg8aCx3W3NOKVzdMjJRu0O5OkgDp3ZGICSTbgRpxZoWsxoKRvbeA==
++  dependencies:
++    "@babel/helper-create-class-features-plugin" "^7.18.6"
++    "@babel/helper-plugin-utils" "^7.18.6"
++
+ "@babel/plugin-proposal-private-property-in-object@7.21.0-placeholder-for-preset-env.2":
+   version "7.21.0-placeholder-for-preset-env.2"
+   resolved "https://registry.yarnpkg.com/@babel/plugin-proposal-private-property-in-object/-/plugin-proposal-private-property-in-object-7.21.0-placeholder-for-preset-env.2.tgz#7844f9289546efa9febac2de4cfe358a050bd703"
+   integrity sha512-SOSkfJDddaM7mak6cPEpswyTRnuRltl429hMraQEglW+OkovnCzsiszTmsrlY//qLFjCpQDFRvjdm2wA5pPm9w==
+ 
++"@babel/plugin-proposal-private-property-in-object@^7.21.11":
++  version "7.21.11"
++  resolved "https://registry.yarnpkg.com/@babel/plugin-proposal-private-property-in-object/-/plugin-proposal-private-property-in-object-7.21.11.tgz#69d597086b6760c4126525cfa154f34631ff272c"
++  integrity sha512-0QZ8qP/3RLDVBwBFoWAwCtgcDZJVwA5LUJRZU8x2YFfKNuFq161wK3cuGrALu5yiPu+vzwTAg/sMWVNeWeNyaw==
++  dependencies:
++    "@babel/helper-annotate-as-pure" "^7.18.6"
++    "@babel/helper-create-class-features-plugin" "^7.21.0"
++    "@babel/helper-plugin-utils" "^7.20.2"
++    "@babel/plugin-syntax-private-property-in-object" "^7.14.5"
++
+ "@babel/plugin-syntax-async-generators@^7.8.4":
+   version "7.8.4"
+   resolved "https://registry.yarnpkg.com/@babel/plugin-syntax-async-generators/-/plugin-syntax-async-generators-7.8.4.tgz#a983fb1aeb2ec3f6ed042a210f640e90e786fe0d"
