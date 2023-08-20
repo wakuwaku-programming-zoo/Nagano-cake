@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2023_08_20_015835) do
+=======
+ActiveRecord::Schema.define(version: 2023_08_19_074749) do
+>>>>>>> develop
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -24,12 +28,15 @@ ActiveRecord::Schema.define(version: 2023_08_20_015835) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
+<<<<<<< HEAD
   create_table "cart_items", force: :cascade do |t|
     t.integer "quantity"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
+=======
+>>>>>>> develop
   create_table "customers", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -49,6 +56,7 @@ ActiveRecord::Schema.define(version: 2023_08_20_015835) do
     t.index ["email"], name: "index_customers_on_email", unique: true
     t.index ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true
   end
+<<<<<<< HEAD
 
   create_table "genres", force: :cascade do |t|
     t.string "name"
@@ -92,6 +100,8 @@ ActiveRecord::Schema.define(version: 2023_08_20_015835) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
+=======
+>>>>>>> develop
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
