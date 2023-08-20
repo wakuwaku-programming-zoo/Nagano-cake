@@ -1,55 +1,29 @@
 Rails.application.routes.draw do
   
-
+  namespace :admin do
+    resources :orders, only:[:show, :update]
+    resources :customers, only:[:index, :show, :edit, :update]
+    resources :genres, only:[:index, :edit, :create, :update]
+    resources :items, only:[:index, :new, :create, :show, :edit]
+    get 'admin' => 'homes#top'
+  end
+  namespace :public do
+    resources :addresses, only:[:index, :edit, :create, :update, :destroy]
+    resources :orders, only:[:new, :create, :index, :show]
+    get 'orders/complete' => 'orders#complete'
+    post 'orders/check' => 'orders#check'
+    resources :cart_items, only:[:index, :update, :destroy, :create]
+    delete 'cart_items/destroy_all' => 'cart_items#destroy_all'
+    get 'customers/mypage' => 'customers#show'
+    get 'customers/edit' => 'customers#edit'
+    patch 'customers' => 'customers#update'
+    get 'customers/check' => 'customers#check'
+    patch 'customers/withdraw' => 'customers#withdraw'
+    resources :items, only:[:index, :show]
+    root to: 'homes#top'
+    get 'about' => 'homes#about'
+  end
   
-  namespace :admin do
-    get 'orders/show'
-  end
-  namespace :admin do
-    get 'customers/index'
-    get 'customers/show'
-    get 'customers/edit'
-  end
-  namespace :admin do
-    get 'genres/index'
-    get 'genres/edit'
-  end
-  namespace :admin do
-    get 'items/index'
-    get 'items/new'
-    get 'items/show'
-    get 'items/edit'
-  end
-  namespace :admin do
-    get 'homes/top'
-  end
-  namespace :public do
-    get 'addresses/index'
-    get 'addresses/edit'
-  end
-  namespace :public do
-    get 'orders/new'
-    get 'orders/check'
-    get 'orders/complete'
-    get 'orders/index'
-    get 'orders/show'
-  end
-  namespace :public do
-    get 'cart_items/index'
-  end
-  namespace :public do
-    get 'customers/show'
-    get 'customers/edit'
-    get 'customers/check'
-  end
-  namespace :public do
-    get 'itmes/index'
-    get 'itmes/show'
-  end
-  namespace :public do
-    get 'homes/top'
-    get 'homes/about'
-  end
   devise_for :admin, skip: [:registrations, :passwords] , controllers: {
     sessions: "admin/sessions"
   }
