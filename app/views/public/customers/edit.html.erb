@@ -1,20 +1,62 @@
-<h2><span class="bg-light p-2">会員情報編集</span></h2>
 
-<div class="row">
-  <!-- 最初のセット -->
-  <div class="col-6">
-    <div class="row g-2">
-      <div class="col-2">
-        <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="氏名">
+<%= form_with(model: @customer,url: public_customers_path(@customer), method: :patch) do |f| %>
+<div class="container ml-4 my-4">
+  <h2><span class="bg-light p-2">会員情報編集</span></h2>
+  <div class="row my-0">
+
+    <div class="col-8">
+      <div class="row ">
+        <div class="col-2 align-self-center">
+          氏名
+        </div>
+        <div class="col-4">
+   　　　　 <%= f.text_field :last_name, class: "form-control", placeholder: "姓" %>
+  　　　</div>
+
+  　　　<div class="col-4">
+   　　　　 <%= f.text_field :first_name, class: "form-control", placeholder: "名" %>
+  　　　</div>
       </div>
-      <div class="col-4">
-        <input type="text" class="form-control" value="<%= @customer.last_name %>" placeholder="姓">
+
+      <div class="row">
+        <div class="col-2 align-self-center">
+          フリガナ
+        </div>
+        <div class="col-4">
+  　 　　<%= f.text_field :last_name_kana, class: "form-control", placeholder: "セイ" %>
+  　　　</div>
+
+  　　　<div class="col-4">
+  　　　 <%= f.text_field :first_name_kana, class: "form-control", placeholder: "カナ" %>
+  　　　</div>
       </div>
-      <div class="col-2">
-      　<input type="text" class="form-control" value="<%= @customer.first_name %>" placeholder="名">
-      </div>
-    </div>
+
+      <div class="row">
+        <div class="col-2 align-self-center">
+          郵便番号
+        </div>
+        <div class="col-4">
+  　 　　<%= f.text_field :postcode, class: "form-control", placeholder: "0000000" %>
+  　　  </div>
+  　　</div>
+
+  　　<div class="row">
+        <div class="col-2 align-self-center">
+          住所
+        </div>
+        <div class="col-8">
+  　 　  　<%= f.text_field :address, class: "form-control", placeholder: "東京都渋谷区代々木神園町0-0" %>
+  　　    </div>
+  　　  </div>
+
+  　</div>
   </div>
+</div>
+
+
+ <%= f.submit "編集内容を保存", class: "btn btn-success" %>
+
+ <% end %>
 
 
 
