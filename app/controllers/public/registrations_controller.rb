@@ -3,11 +3,12 @@
 class Public::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
-  
-  # 新規登録後の遷移先のパス（マイページ）
-  # def after_sign_up_path_for(resource)
-  #   _path
-  # end 
+
+  #新規登録後の遷移先のパス（マイページ）
+  def after_sign_up_path_for(resource)
+    public_customers_mypage_path
+  end
+
   protected
 
   def configure_permitted_parameters
