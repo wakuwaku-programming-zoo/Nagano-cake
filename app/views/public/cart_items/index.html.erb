@@ -1,2 +1,41 @@
-<h1>Public::CartItems#index</h1>
-<p>Find me in app/views/public/cart_items/index.html.erb</p>
+<div class="container">
+  <div class="low">
+    <div class="col">
+      <div class="d-flex justify-content-between pt-5 pb-4">
+        <h3 class="bg-light">ショッピングカート</h3>
+        <%= link_to 'カートを空にする', public_cart_items_destroy_all_path, method: :delete, class:"btn btn-danger" %>
+      </div>
+    </div>
+    <div class="col">
+      <table class="table table-bordered border-primary">
+        <thead>
+          <tr>
+            <th>商品名</th>
+            <th>単価(税込)</th>
+            <th>数量</th>
+            <th>小計</th>
+            <th colspan="1"></th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><%= link_to '削除する', public_cart_items_path, class:"btn btn-danger" %></td>  <!-- 仮path -->
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="d-flex justify-content-between">  
+      <%= link_to '買い物を続ける',  "/", class: "btn btn-primary" %>
+        <div class="border p-2 bg-muted">
+          <span class="border-right pr-5">合計金額</span>
+          <span class="pr-5">〇〇〇〇</span>  <!-- 〇〇〇は仮。金額が入る -->
+        </div>
+    </div>
+    <div class="text-center p-4"><%= link_to '注文入力に進む', new_public_order_path, class: "btn btn-success" %></div>
+  </div>
+</div>

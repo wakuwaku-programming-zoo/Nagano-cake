@@ -1,2 +1,44 @@
-<h1>Public::Orders#new</h1>
-<p>Find me in app/views/public/orders/new.html.erb</p>
+<div class="container">
+  <div class="low">
+    <div class="col">
+      
+      <h3>注文情報入力</h3>
+        <h4>支払方法</h4>
+        <div class="form-group">
+          <input type="radio" name="paymentMethod" id="creditCard" value="creditCard" checked>
+          <label for="creditCard">クレジットカード</label>
+        </div>
+        <div class="form-group">
+          <input type="radio" name="paymentMethod" id="bankTransfer" value="bankTransfer">
+          <label for="bankTransfer">振り込み</label>
+        </div>
+        
+        <h4>お届け先</h4>
+        <div class="form-group"></div>
+          <input type="radio" name="deliveryOption" checked>
+          <label for="address">ご自身の住所:</label>
+          
+        <div class="form-group"></div>
+          <input type="radio" name="deliveryOption"></input>
+          <label for="addres">登録済住所から選択:</label>
+          
+        <!-- 新しいお届け先の入力欄 -->
+        <div class="form-group">
+          <input type="radio" name="deliveryOption" value="newaddress">
+          <label for="creditCard">新しいお届け先</label>
+        <div class="form-group">
+          <label for="postalCode">郵便番号(ハイフンなし)</label>
+          <input type="text" class="col-3 rounded" placeholder="0000000 "></input>
+        </div>
+        <div class="form-group">
+          <label for="address">住所</label>
+          <input type="text" class="col-9 rounded" placeholder="東京都渋谷区代々木神園町0-0 "></input>
+        </div>
+        <div class="form-group">
+          <label for="recipientName">宛名</label>
+          <input type="text" class="col-3 rounded" placeholder="令和道子 ">
+        </div>
+        <div class="text-center p-4"><%= link_to '確認画面へ進む', public_orders_check_path, class: "btn btn-primary" %></div>
+    </div>
+  </div>
+</div>
