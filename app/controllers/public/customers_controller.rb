@@ -19,14 +19,21 @@ class Public::CustomersController < ApplicationController
   end
 
   def check
+    @customer = current_customer
   end
 
   def withdraw
+    @customer = Customer.find(current_customer.id)
+    # t.boolean "is_cancel_membership", default: false, null: falseを記載している
+    @customer.update(is_cancel_membership: true)
+    reset_session
+    flash[:notice] ="退会処理をいたしました。"
+    redirect_to public_root_path
   end
 
   private
 
   def customer_params
-    params.require(:customer).permit(:last_name, :first_name, :last_name_kana, :first_name_kana, :address, :postcode, :telephone_number)
+    params.require(:customer).permit(:last_name, :first_name, :last_name_kana, :first_name_kana, :address, :postcode, :telephon_number, :email)
   end
 end

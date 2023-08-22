@@ -1,60 +1,89 @@
 
 <%= form_with(model: @customer,url: public_customers_path(@customer), method: :patch) do |f| %>
-<div class="container ml-4 my-4">
-  <h2><span class="bg-light p-2">会員情報編集</span></h2>
-  <div class="row my-0">
 
-    <div class="col-8">
-      <div class="row ">
-        <div class="col-2 align-self-center">
-          氏名
+<div class="container" style="margin-top: 40px;">
+  <div class="row justify-content-center">
+
+    <div class="col-md-9">
+       <h2><span class="bg-light p-2">会員情報編集</span></h2>
+
+      <div class="form-group row">
+          <div class="col-md-4">
+            <%= f.label :名前 %>
+          </div>
+          <div class="col-md-4">
+            <%= f.label :（性）, class: "col-form-label" %>
+            <%= f.text_field :last_name, class: "form-control" %>
+          </div>
+          <div class="col-md-4">
+            <%= f.label :（名）, class: "col-form-label" %>
+            <%= f.text_field :first_name, class: "form-control" %>
+          </div>
         </div>
-        <div class="col-4">
-   　　　　 <%= f.text_field :last_name, class: "form-control", placeholder: "姓" %>
-  　　　</div>
 
-  　　　<div class="col-4">
-   　　　　 <%= f.text_field :first_name, class: "form-control", placeholder: "名" %>
-  　　　</div>
-      </div>
-
-      <div class="row">
-        <div class="col-2 align-self-center">
-          フリガナ
+        <div class="form-group row">
+          <div class="col-md-4">
+            <%= f.label :フリガナ %>
+          </div>
+          <div class="col-md-4">
+            <%= f.label :（セイ）, class: "col-form-label" %>
+            <%= f.text_field :last_name_kana, class: "form-control" %>
+          </div>
+          <div class="col-md-4">
+            <%= f.label :（メイ）, class: "col-form-label" %>
+            <%= f.text_field :first_name_kana, class: "form-control" %>
+          </div>
         </div>
-        <div class="col-4">
-  　 　　<%= f.text_field :last_name_kana, class: "form-control", placeholder: "セイ" %>
-  　　　</div>
 
-  　　　<div class="col-4">
-  　　　 <%= f.text_field :first_name_kana, class: "form-control", placeholder: "カナ" %>
-  　　　</div>
-      </div>
-
-      <div class="row">
-        <div class="col-2 align-self-center">
-          郵便番号
+        <div class="form-group row">
+          <div class="col-md-4">
+            <%= f.label :郵便番号（ハイフンなし）, class: "col-form-label" %>
+          </div>
+          <div class="col-md-8">
+            <%= f.text_field :postcode, class: "form-control" %>
+          </div>
         </div>
-        <div class="col-4">
-  　 　　<%= f.text_field :postcode, class: "form-control", placeholder: "0000000" %>
-  　　  </div>
-  　　</div>
 
-  　　<div class="row">
-        <div class="col-2 align-self-center">
-          住所
+        <div class="form-group row">
+          <div class="col-md-4">
+            <%= f.label :住所, class: "col-form-label" %>
+          </div>
+          <div class="col-md-8">
+            <%= f.text_field :address, class: "form-control" %>
+          </div>
         </div>
-        <div class="col-8">
-  　 　  　<%= f.text_field :address, class: "form-control", placeholder: "東京都渋谷区代々木神園町0-0" %>
-  　　    </div>
-  　　  </div>
 
-  　</div>
-  </div>
-</div>
+        <div class="form-group row">
+          <div class="col-md-4">
+            <%= f.label :電話番号（ハイフンなし）, class: "col-form-label" %>
+          </div>
+          <div class="col-md-8">
+            <%= f.text_field :telephon_number, class: "form-control" %>
+          </div>
+        </div>
 
+        <div class="form-group row">
+          <div class="col-md-4">
+            <%= f.label :メールアドレス, class: "col-form-label" %>
+          </div>
+          <div class="col-md-8">
+            <%= f.email_field :email, class: "form-control" %>
+          </div>
+        </div>
 
- <%= f.submit "編集内容を保存", class: "btn btn-success" %>
+        <div class="form-group row">
+          <div class="col-md-7 text-right">
+            <%= f.submit "編集内容を保存", class: "btn btn-success" %>
+          </div>
+
+           <div class="col-md-4 text-right">
+　　　　　　<%= link_to '退会する', public_customers_check_path, class: "btn btn-danger" %>
+          </div>
+      　</div>
+
+       </div>
+     </div>
+   </div>
 
  <% end %>
 
