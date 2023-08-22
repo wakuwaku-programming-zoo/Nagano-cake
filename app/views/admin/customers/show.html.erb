@@ -4,16 +4,26 @@
   <div class="row justify-content-center">
 
     <div class="col-md-9">
-       <h2><span class="bg-light p-2">会員詳細</span></h2>
+       <h3><span class="bg-light p-2"><%= @customer.last_name %><%= @customer.first_name %>さんの会員詳細</span></h3>
 
-      <div class="form-group row">
+         <div class="form-group row">
+          <div class="col-md-4">
+            <%= label_tag :id, "会員ID" %>
+          </div>
+          <div class="col-md-8">
+            <%= @customer.id %>
+          </div>
+        </div>
+
+
+        <div class="form-group row">
           <div class="col-md-4">
             <%= label_tag :last_name, "氏名" %>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-2">
             <%= @customer.last_name %>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-2">
             <%= @customer.first_name %>
           </div>
         </div>
@@ -22,17 +32,17 @@
           <div class="col-md-4">
             <%= label_tag :last_name_kana, "フリガナ" %>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-2">
             <%= @customer.last_name_kana %>
           </div>
-          <div class="col-md-4">
+          <div class="col-md-2">
             <%= @customer.first_name_kana %>
           </div>
         </div>
 
         <div class="form-group row">
           <div class="col-md-4">
-            <%= f.label :郵便番号 %>
+            <%= label_tag :postcode, "郵便番号" %>
           </div>
           <div class="col-md-8">
             <%= @customer.postcode %>
@@ -41,7 +51,7 @@
 
         <div class="form-group row">
           <div class="col-md-4">
-            <%= f.label :住所 %>
+            <%= label_tag :address, "住所" %>
           </div>
           <div class="col-md-8">
             <%= @customer.address %>
@@ -50,7 +60,7 @@
 
         <div class="form-group row">
           <div class="col-md-4">
-            <%= f.label :電話番号 %>
+            <%= label_tag :telephon_number, "電話番号" %>
           </div>
           <div class="col-md-8">
             <%= @customer.telephon_number %>
@@ -59,17 +69,27 @@
 
         <div class="form-group row">
           <div class="col-md-4">
-            <%= f.label :メールアドレス %>
+            <%= label_tag :email, "メールアドレス" %>
           </div>
           <div class="col-md-8">
             <%= @customer.email %>
           </div>
         </div>
 
+         <div class="form-group row">
+          <div class="col-md-4">
+            <%= label_tag :is_cancel_membership, "会員ステータス" %>
+          </div>
+          <div class="col-md-8">
+            <%= @customer.is_cancel_membership ? "退会" : "有効" %>
+          </div>
+        </div>
+
+
 
 
         <div class="form-group row">
-          <div class="col-md-7 text-right">
+          <div class="col-md-2 text-right">
             <%= link_to "編集する", edit_admin_customer_path(@customer), class: "btn btn-success" %>
           </div>
 
