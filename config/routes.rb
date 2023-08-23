@@ -9,11 +9,15 @@ Rails.application.routes.draw do
   end
   namespace :public, path: '/' do
     resources :addresses, only:[:index, :edit, :create, :update, :destroy]
-    resources :orders, only:[:new, :create, :index, :show]
-    get 'orders/complete' => 'orders#complete'
     post 'orders/check' => 'orders#check'
-    resources :cart_items, only:[:index, :update, :destroy, :create]
+    get 'orders/check' => 'orders#check'
+    get 'orders/complete' => 'orders#complete'
+    resources :orders, only:[:new, :create, :index, :show]
+    
+    
     delete 'cart_items/destroy_all' => 'cart_items#destroy_all'
+    resources :cart_items, only:[:index, :update, :destroy, :create]
+    
     get 'customers/mypage' => 'customers#show'
     get 'customers/edit' => 'customers#edit'
     patch 'customers' => 'customers#update'
