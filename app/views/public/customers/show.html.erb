@@ -4,16 +4,16 @@
   <h2><span class="bg-light p-2">マイページ</span></h2>
 
   <div class="row mt-5">
-    <div class="col-2">
+    <div class="col-1 my-4 font-weight-bold">
       登録情報
     </div>
-    <div class="col-2">
+    <div class="col-2 my-4">
       <%= link_to '編集する', public_customers_edit_path, class: "btn btn-success" %>
     </div>
 
     <table class="table table-bordered">
       <tr>
-        <th class="col-3 bg-light">氏名</th>
+        <th class="col-2 bg-light">氏名</th>
         <td><%= @customer.last_name %> <%= @customer.first_name %></td>
       </tr>
       <tr>

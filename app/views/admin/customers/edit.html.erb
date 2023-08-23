@@ -44,7 +44,7 @@
           <div class="col-md-4">
             <%= label_tag :postcode, "郵便番号" %>
           </div>
-          <div class="col-md-8">
+          <div class="col-md-4">
             <%= f.text_field :postcode, class: "form-control" %>
           </div>
         </div>
@@ -62,7 +62,7 @@
           <div class="col-md-4">
             <%= label_tag :telephon_number, "電話番号" %>
           </div>
-          <div class="col-md-8">
+          <div class="col-md-4">
             <%= f.text_field :telephon_number, class: "form-control" %>
           </div>
         </div>
@@ -71,7 +71,7 @@
           <div class="col-md-4">
             <%= label_tag :email, "メールアドレス" %>
           </div>
-          <div class="col-md-8">
+          <div class="col-md-4">
             <%= f.email_field :email, class: "form-control" %>
           </div>
         </div>
@@ -86,6 +86,8 @@
                 <%= f.radio_button :is_cancel_membership, false %>
                 有効
               </label>
+
+　　　　　　　<span class="space-between-radio-labels"><!-- スペースを追加するための空の要素 --></span>
 
               <label class="radio-inline">
                 <%= f.radio_button :is_cancel_membership, true %>

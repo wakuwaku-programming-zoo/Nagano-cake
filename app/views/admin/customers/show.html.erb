@@ -80,7 +80,7 @@
           <div class="col-md-4">
             <%= label_tag :is_cancel_membership, "会員ステータス" %>
           </div>
-          <div class="col-md-8">
+          <div class="col-md-8" style="color: <%= @customer.is_cancel_membership ? 'gray' : 'green' %>;">
             <%= @customer.is_cancel_membership ? "退会" : "有効" %>
           </div>
         </div>
