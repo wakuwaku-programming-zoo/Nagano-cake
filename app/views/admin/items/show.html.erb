@@ -4,11 +4,7 @@
       <h2>商品詳細</h2>
 
       <div class="item-details">
-        <% if @item.image.attached? %>
-          <%= image_tag @item.image, class: "item-image" %>
-        <% else %>
-          <%= image_tag "noimage.png", class: "item-image", alt: "No Image" %>
-        <% end %>
+          <%= image_tag @item.get_image, class: "item-image" %>
 
         <p><strong>商品名:</strong> <%= @item.name %><p>
         <p><strong>商品説明:</strong><%= @item.introduction %></p>
