@@ -1,2 +1,48 @@
-<h1>Public::Orders#check</h1>
-<p>Find me in app/views/public/orders/check.html.erb</p>
+<div class="container">
+  <div class="low">
+    <div class="col">
+      <h3>注文情報確認</h3>
+      <div class="d-flex">
+        <div class="table-responsive  mr-5">
+          <table class="table table-bordered">
+            <thead class="thead-light">
+              <tr>
+                <th style="width: 40%;">商品名</th>
+                <th style="width: 20%;">単価(税込み)</th>
+                <th style="width: 20%;">数量</th>
+                <th style="width: 20%;">小計</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <table class="table table-bordered" style="width: 30%;">
+          <tbody>
+            <tr>
+              <td class="table-light">送料</td>
+              <td>800</td>
+            </tr>
+            <tr>
+              <td class="table-light">商品合計</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td class="table-light">請求金額</td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <p>支払い方法</p>
+    <p>お届け先</p>
+    <%= link_to '注文を確定する', public_orders_complete_path, class: "btn btn-success" %>
+  </div>
+</div>
