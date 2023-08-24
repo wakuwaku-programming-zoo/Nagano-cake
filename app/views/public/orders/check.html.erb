@@ -13,13 +13,15 @@
                 <th style="width: 20%;">小計</th>
               </tr>
             </thead>
-            <tbody>
+             <tbody>
+              <% @cart_items.each do |cart_item| %>
               <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td><%= cart_item.item.name %></td>
+                <td><%= cart_item.item.price %></td>
+                <td><%= cart_item.quantity %></td>
+                <td><%= cart_item.subtotal %></td>
               </tr>
+              <% end %>
             </tbody>
           </table>
         </div>
@@ -42,7 +44,20 @@
       </div>
     </div>
     <p>支払い方法</p>
+    <%= form_with model: @order, url: public_orders_path, method: :post do |f| %>
+    <% if @order.payment_method == "credit_card" %>
+      クレジットカード
+    <% else %>
+      銀行振込
+    <% end %>
+
     <p>お届け先</p>
-    <%= link_to '注文を確定する', public_orders_complete_path, class: "btn btn-success" %>
+    <%= @order.postcode + " " + @order.address + " " + @order.name %>
+    <%= f.hidden_field :postcode %>
+    <%= f.hidden_field :address %>
+    <%= f.hidden_field :payment_method %>
+    <%= f.hidden_field :name %>
+    <%= f.submit "注文を確定する", class: "btn btn-success" %>
+    <% end %>
   </div>
 </div>
