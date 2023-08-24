@@ -24,7 +24,7 @@
         <% @items.each do |item| %>
         <div class="item_image text-center mb-4">
           <%= link_to public_item_path(item.id) do %>
-          <div class="img"><%= image_tag item.get_image, size: "180x135" %></div>
+          <%= image_tag item.get_image, size: "180x135",format: "jpeg" %>
           <% end %>
           <%= item.name %><br>
           ￥<%= item.price %>
