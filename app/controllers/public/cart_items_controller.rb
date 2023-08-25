@@ -16,7 +16,6 @@ class Public::CartItemsController < ApplicationController
   def index
     @cart_items = current_customer.cart_items # カート内の商品を取得する
     @total = 0
-    # @total_price = calculate_total_price(@cart_items)
   end
 
   # カート内の商品を更新
