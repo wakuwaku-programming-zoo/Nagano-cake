@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-8">
-      <h4>管理者ログイン</h4>
+     <h4 class="d-inline bg-light ">管理者ログイン</h4>
 
       <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
         <div class="form-group row">
@@ -22,7 +22,10 @@
           </div>
         </div>
 
-        <div class="actions">
+        <div class="actions d-flex justify-content-center">
           <%= f.submit "ログイン", class: "btn btn-primary" %>
         </div>
       <% end %>
+    </div>
+  </div>
+</div>
