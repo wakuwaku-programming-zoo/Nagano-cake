@@ -14,13 +14,17 @@
               </tr>
             </thead>
              <tbody>
+               <% total = 0 %>
               <% @cart_items.each do |cart_item| %>
+                <% total += cart_item.subtotal %>
+
               <tr>
                 <td><%= cart_item.item.name %></td>
-                <td><%= cart_item.item.price %></td>
+                <td><%= cart_item.item.with_tax_price %></td>
                 <td><%= cart_item.quantity %></td>
                 <td><%= cart_item.subtotal %></td>
               </tr>
+
               <% end %>
             </tbody>
           </table>
@@ -29,35 +33,32 @@
           <tbody>
             <tr>
               <td class="table-light">送料</td>
-              <td>800</td>
+              <td><%= @order.postage %></td>
             </tr>
             <tr>
               <td class="table-light">商品合計</td>
-              <td></td>
+              <td><%= total %></td>
             </tr>
             <tr>
               <td class="table-light">請求金額</td>
-              <td></td>
+              <td><%= total + @order.postage %></td>
             </tr>
+
           </tbody>
         </table>
       </div>
     </div>
-    <p>支払い方法</p>
-    <%= form_with model: @order, url: public_orders_path, method: :post do |f| %>
-    <% if @order.payment_method == "credit_card" %>
-      クレジットカード
-    <% else %>
-      銀行振込
-    <% end %>
+    <div>
+      <%= form_with model: @order, url: public_orders_path, method: :post do |f| %>
+        <p>お支払い方法 <%= @order.payment_method == "credit_card" ? "クレジットカード" : "銀行振込" %></p>
+        <p>お届け先 <%= @order.postcode + " " + @order.address + " " + @order.name %></p>
+        <%= f.hidden_field :postcode %>
+        <%= f.hidden_field :address %>
+        <%= f.hidden_field :payment_method %>
+        <%= f.hidden_field :name %>
 
-    <p>お届け先</p>
-    <%= @order.postcode + " " + @order.address + " " + @order.name %>
-    <%= f.hidden_field :postcode %>
-    <%= f.hidden_field :address %>
-    <%= f.hidden_field :payment_method %>
-    <%= f.hidden_field :name %>
-    <%= f.submit "注文を確定する", class: "btn btn-success" %>
-    <% end %>
+        <%= f.submit "注文を確定する", class: "btn btn-success" %>
+      <% end %>
+    </div>
   </div>
 </div>

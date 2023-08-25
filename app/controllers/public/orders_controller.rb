@@ -1,4 +1,5 @@
 class Public::OrdersController < ApplicationController
+  
   def new
     @order = Order.new
   end
@@ -6,6 +7,8 @@ class Public::OrdersController < ApplicationController
   def create
    @order = Order.new(order_params) 
    @order.save
+   @order.update(status: "waiting")        # ステータスを「入金待ち」に更新
+   current_customer.cart_items.destroy_all # カート内の商品を削除
   redirect_to public_orders_complete_path
   end
   
@@ -15,23 +18,24 @@ class Public::OrdersController < ApplicationController
     # 選択された支払い方法とお届け先を @order に設定
     @order.payment_method = params[:order][:payment_method]
     
-    # @address = ShippingAddress.find(params[:order][:shipping_address_id])
+    # 自身の住所が選んだ時の処理
     if params[:order][:select_address] == "0"
       @order.postcode = current_customer.postcode
       @order.address = current_customer.address
-      @order.name = current_customer.first_name + current_customer.last_name
+      @order.name = current_customer.last_name + current_customer.first_name
+      # 登録済のお届け先を選んだ時の処理
     elsif params[:order][:select_address] == "1"
       @address = ShippingAddress.find(params[:order][:address_id])
       @order.postcode = @address.postcode
       @order.address = @address.address
       @order.name = @address.name
+    # 新しいお届け先を登録した時の処理
     else
       @address = ShippingAddress.new(postcode: params[:order][:postcode], address: params[:order][:address], name: params[:order][:name])
       @order.postcode = @address.postcode
       @order.address = @address.address
       @order.name = @address.name
     end
-    
   end
 
   def complete
