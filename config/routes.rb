@@ -5,8 +5,9 @@ Rails.application.routes.draw do
     resources :customers, only:[:index, :show, :edit, :update]
     resources :genres, only:[:index, :edit, :create, :update]
     resources :items, only:[:index, :new, :create, :show, :edit, :update]
-    get 'admin' => 'homes#top'
     resources :order_details, only:[:update]
+    root to: 'homes#top'
+
   end
   namespace :public, path: '/' do
     resources :addresses, only:[:index, :edit, :create, :update, :destroy]
