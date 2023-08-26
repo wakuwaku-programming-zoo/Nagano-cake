@@ -5,16 +5,24 @@ class Public::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
-  #新規登録後の遷移先のパス（マイページ）
   def after_sign_up_path_for(resource)
-    public_customers_mypage_path
+    if resource.errors.any?
+      flash[:error] = resource.errors.full_messages.join(', ')
+      flash[:registration_params] = params[:customer] # 空のままのフォームデータを保持
+      new_customer_registration_path # 登録失敗時は再度登録画面を表示
+    else
+      public_customers_mypage_path # 登録成功時はマイページにリダイレクト
+    end
   end
 
-protected
 
-def configure_permitted_parameters
-  devise_parameter_sanitizer.permit(:sign_up, keys: [:last_name, :first_name, :last_name_kana, :first_name_kana, :address, :postcode, :telephon_number])
-end
+  protected
+
+
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:last_name, :first_name, :last_name_kana, :first_name_kana, :address, :postcode, :telephon_number])
+  end
 
   # GET /resource/sign_up
   # def new
