@@ -3,14 +3,75 @@
   <head>
     <title>WorkGithub</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <script src="https://kit.fontawesome.com/52ec04519a.js" crossorigin="anonymous"></script>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+          <a class="navbar-brand" href="/">
+            <span><img src="<%= asset_path('rogo3.png') %>" alt="ロゴ" style="width: 80px; max-height: auto; object-fit: contain;"></span>
+          </a>
+
+           <ul class="navbar-nav ml-auto">
+            <% if customer_signed_in? %>
+              <li>
+                <span class="nav-link name-label" style="color: #333;"><%= @customer.last_name %> <%= @customer.first_name %>様</span>
+              </li>
+              <li><%= link_to "マイページ", public_customers_mypage_path, class: "btn" %></li>
+              <li><%= link_to "商品一覧", public_items_path, class: "btn" %></li>
+              <li><%= link_to "カート", public_cart_items_path, class: "btn" %></li>
+              <li><%= link_to "ログアウト", destroy_customer_session_path, method: :delete, class: "btn" %></li>
+            <% elsif admin_signed_in? %>
+              <li><%= link_to "商品一覧", admin_items_path, class: "btn" %></li>
+              <li><%= link_to "会員一覧", admin_customers_path, class: "btn" %></li>
+              <li><%= link_to "注文履歴一覧", admin_root_path, class: "btn" %></li>
+              <li><%= link_to "ジャンル一覧", admin_genres_path, class: "btn" %></li>
+              <li><%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "btn" %></li>
+            <% else %>
+              <li><%= link_to "about", public_about_path, class: "btn" %></li>
+              <li><%= link_to "商品一覧", public_items_path, class: "btn" %></li>
+              <li><%= link_to "新規登録", new_customer_registration_path, class: "btn" %></li>
+              <li><%= link_to "ログイン", customer_session_path, class: "btn" %></li>
+            <% end %>
+
+          </ul>
+            <form class="d-flex">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+
+    </header>
     <%= yield %>
+    <footer style="position: fixed; bottom: 0; width: 100%;">
+      <div class="footer bg-light" style="height: 50px;">
+      	<div class="container">
+      		<div class="row justify-content-center">
+           © WAKUWAKU Programming ZOO
+          </div>
+
+
+          <ul class="navbar-nav ml-auto">
+              <div class="row justify-content-center">
+                <a href="#" class="mr-4"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="mr-4"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="mr-4"><i class="fab fa-google-plus-g"></i></a>
+                <a href="#" class="mr-4"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-pinterest"></i></a>
+              </div>
+          </ul>
+
+      	</div>
+      </div>
+    </footer>
+
   </body>
 </html>
+

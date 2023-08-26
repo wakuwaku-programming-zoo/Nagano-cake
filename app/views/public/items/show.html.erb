@@ -1,0 +1,40 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-4 ">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>ジャンル検索</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <% @genres.each do |genre| %>
+               <%= genre.name %>
+              <% end %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+      <div class="col-lg-4 mt-4">
+       <%= image_tag @item.get_image, size: "360x270", class: "item-image" %>
+      </div>
+      <div class="col-lg-4 mt-4">
+       <h2><%= @item.name %></h2>
+       <h4><%= @item.introduction %></h4>
+       <br>
+       <h3 class="d-inline"><%= number_to_currency(@item.price * 1.1) %></h3><p class="d-inline">(税込)</p>
+
+         <%= form_with(model: [:public, @cart_item], url: public_cart_items_path, method: :post) do |f| %>
+          <div class="form-group d-flex justify-content-around">
+            <%= f.select :quantity, [[1,1], [2,2], [3,3], [4,4], [5,5]], include_blank: "個数選択", class: "form-control" %>
+            <%= f.hidden_field :item_id, :value => @item.id %>
+            <%= f.submit "カートに入れる", class: "btn btn-success" %>
+          </div>
+         <% end %>
+
+      </div>
+  </div>
+</div>

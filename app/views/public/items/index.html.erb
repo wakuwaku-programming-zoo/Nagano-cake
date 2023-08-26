@@ -1,0 +1,36 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-4 ">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>ジャンル検索</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <% @genres.each do |genre| %>
+               <%= genre.name %>
+              <% end %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-lg-8 mt-4" style="padding-bottom: 70px;">
+      <h2 class="mb-4 d-inline text-start">商品一覧</h2><P class="d-inline">(全<%= @items.count %>件)</P>
+      <div class="item_images d-flex flex-wrap justify-content-start">
+        <% @items.each do |item| %>
+        <div class="item_image text-center mb-4">
+          <%= link_to public_item_path(item.id) do %>
+          <%= image_tag item.get_image, size: "180x135",format: "jpeg" %>
+          <% end %>
+          <%= item.name %><br>
+          ￥<%= item.price %>
+        </div>
+        <% end %>
+      </div>
+   </div>
+  </div>
+</div>

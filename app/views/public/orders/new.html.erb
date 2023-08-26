@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="low">
+    <div class="col">
+      
+      <h3>注文情報入力</h3>
+        <h4>支払方法</h4>
+        <%= form_with model: @order, url: public_orders_check_path, method: :post do |f| %>
+          <div>
+            <%= f.radio_button :payment_method, Order.payment_methods.key(0), checked: true %>
+            <%= f.label :payment_method_credit_card, Order.payment_methods_i18n[:credit_card] %>
+          </div>
+          <div>
+            <%= f.radio_button :payment_method, Order.payment_methods.key(1) %>
+            <%= f.label :payment_method_transfer, Order.payment_methods_i18n[:transfer]%>
+          </div>
+        
+        
+          <h4>お届け先</h4>
+          <!--自身の住所-->
+          <div>
+            <%= f.radio_button :select_address, "0", checked: true %>
+            <%= f.label :address_type, "ご自身の住所" %><br>
+            〒<%= current_customer.postcode + "　" + current_customer.address + "　" + current_customer.last_name + current_customer.first_name %>
+          </div>
+          <!--登録済の住所-->
+          <div>
+            <%= f.radio_button :select_address, "1" %>
+            <%= f.label :"登録済住所から選択:" %><br>
+              <%= f.select :address_id, options_from_collection_for_select(ShippingAddress.all, :id, :address_display) %>
+
+          </div>
+            
+          <!-- 新しいお届け先の入力欄 -->
+          <div>
+            <%= f.radio_button :select_address, "2" %>
+            <%= f.label :"新しいお届け先:" %>
+              <div >
+                郵便番号(ハイフンなし)
+                <%= f.text_field :postcode, class:"form-control", placeholder:"0000000" %>
+              </div>
+              <div>
+                住所
+                <%= f.text_field :address, class:"form-control", placeholder:"東京都渋谷区代々木神園町0-0" %>
+              </div>
+              <div>
+                宛名
+                <%= f.text_field :name, class:"form-control", placeholder:"令和道子" %>
+              </div>
+              <div class="text-center p-4">
+                <%= f.submit "確認画面へ進む", class: "btn btn-primary" %>
+              </div>
+          </div>
+        <% end %>
+    </div>
+  </div>
+</div>
