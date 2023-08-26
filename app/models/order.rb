@@ -5,7 +5,6 @@ class Order < ApplicationRecord
   # 一時的なパラメータを持たせたい
   attr_accessor :select_address
   attr_accessor :address_id
-
   order = Order.new
   order.save
 
