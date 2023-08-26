@@ -1,6 +1,6 @@
 <div class="container mt-5">
   <div class="row justify-content-center">
-    <div class="col-4 ">
+    <div class="col-2 ">
       <table class="table table-bordered">
         <thead>
           <tr>
@@ -11,14 +11,14 @@
           <tr>
             <td>
               <% @genres.each do |genre| %>
-               <%= genre.name %>
+               <%= genre.name %><br>
               <% end %>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
-    <div class="col-lg-8 mt-4" style="padding-bottom: 70px;">
+    <div class="col-lg-10 mt-4" style="padding-bottom: 70px;">
       <h2 class="mb-4 d-inline text-start">商品一覧</h2><P class="d-inline">(全<%= @items.count %>件)</P>
       <div class="item_images d-flex flex-wrap justify-content-start">
         <% @items.each do |item| %>
@@ -28,6 +28,9 @@
           <% end %>
           <%= item.name %><br>
           ￥<%= item.price %>
+          <p class="<%= item.is_sales_status ? '' : 'text-danger' %>">
+          <%= item.is_sales_status ? "販売中" : "売切れ" %>
+          </p>
         </div>
         <% end %>
       </div>
