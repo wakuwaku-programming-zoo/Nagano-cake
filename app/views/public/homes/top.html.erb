@@ -47,6 +47,7 @@
         <div class="row">
           <!--3つまでに表示でとめる-->
           <% @items.take(3).each do |item| %>
+          <% if item.is_sales_status %>
           <div class="col">
             <div class="card" style="width: 18rem;">
           <%= link_to public_item_path(item.id) do %>
@@ -60,6 +61,7 @@
             </div>
           </div>
 　　　　  <% end %>
+　　　　  <% end %>
 　　　　</div>
       </div>
 
@@ -70,7 +72,7 @@
            </div>
       　</div>
       </div>
-      
+
 
 
 
