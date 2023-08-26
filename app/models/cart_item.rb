@@ -3,7 +3,7 @@ class CartItem < ApplicationRecord
   belongs_to :item
   
   ## 小計を求めるメソッド
-def subtotal
+  def subtotal
     item.with_tax_price * quantity
-end
+  end
 end

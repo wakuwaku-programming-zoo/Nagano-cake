@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_action :set_current_customer
+   before_action :set_current_customer
 
   private
 
@@ -7,3 +7,4 @@ class ApplicationController < ActionController::Base
     @customer = current_customer if customer_signed_in?
   end
 end
+
