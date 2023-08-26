@@ -27,16 +27,17 @@
        <br>
        <h3 class="d-inline"><%= number_to_currency(@item.price * 1.1) %></h3><p class="d-inline">(税込)</p>
 
-         <% if @item.is_sales_status %>
-         <%= form_with(model: [:public, @cart_item], url: public_cart_items_path, method: :post) do |f| %>
-          <div class="form-group d-flex justify-content-around">
-            <%= f.select :quantity, [[1,1], [2,2], [3,3], [4,4], [5,5]], include_blank: "個数選択", class: "form-control" %>
-            <%= f.hidden_field :item_id, :value => @item.id %>
-
-            <%= f.submit "カートに入れる", class: "btn btn-success" %>
-            <% end %>
-          <% else %>
-            <p class="text-danger">この商品は現在販売停止中です。</p>
+        <% if @item.is_sales_status %>
+          <%= form_with(model: [:public, @cart_item], url: public_cart_items_path, method: :post) do |f| %>
+            <div class="form-group d-flex justify-content-around">
+              <%= f.select :quantity, [[1,1], [2,2], [3,3], [4,4], [5,5]], include_blank: "個数選択", class: "form-control" %>
+              <%= f.hidden_field :item_id, :value => @item.id %>
+              <% if customer_signed_in? %>
+                <%= f.submit "カートに入れる", class: "btn btn-success" %>
+              <% end %>
+          <% end %>
+        <% else %>
+          <p class="text-danger">この商品は現在販売停止中です。</p>
 
           </div>
          <% end %>
