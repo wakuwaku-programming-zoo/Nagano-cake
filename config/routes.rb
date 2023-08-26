@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     resources :genres, only:[:index, :edit, :create, :update]
     resources :items, only:[:index, :new, :create, :show, :edit, :update]
     get 'admin' => 'homes#top'
+    resources :order_details, only:[:update]
   end
   namespace :public, path: '/' do
     resources :addresses, only:[:index, :edit, :create, :update, :destroy]
@@ -13,11 +14,11 @@ Rails.application.routes.draw do
     get 'orders/check' => 'orders#check'
     get 'orders/complete' => 'orders#complete'
     resources :orders, only:[:new, :create, :index, :show]
-    
-    
+
+
     delete 'cart_items/destroy_all' => 'cart_items#destroy_all'
     resources :cart_items, only:[:index, :update, :destroy, :create]
-    
+
     get 'customers/mypage' => 'customers#show'
     get 'customers/edit' => 'customers#edit'
     patch 'customers' => 'customers#update'
