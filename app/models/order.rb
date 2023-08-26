@@ -6,6 +6,7 @@ class Order < ApplicationRecord
   attr_accessor :select_address
   attr_accessor :address_id
   
+  
   order = Order.new
   order.save
   

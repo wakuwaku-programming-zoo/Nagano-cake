@@ -6,4 +6,6 @@ class CartItem < ApplicationRecord
   def subtotal
     item.with_tax_price * quantity
   end
+  
+  attr_accessor :total
 end
