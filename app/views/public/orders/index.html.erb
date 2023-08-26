@@ -1,2 +1,39 @@
-<h1>Public::Orders#index</h1>
-<p>Find me in app/views/public/orders/index.html.erb</p>
+<!-- app/views/public/orders/index.html.erb -->
+<h1>注文履歴一覧</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>注文番号</th>
+      <th>注文日時</th>
+      <!-- 他のカラムを追加 -->
+    </tr>
+  </thead>
+<tbody>
+  <% if @orders.any? %>
+    <% @orders.each do |order| %>
+      <tr>
+        <td><%= order.id %></td>
+        <td><%= order.created_at %></td>
+        <td>
+          <% order.order_details.each do |order_detail| %>
+            <%= order_detail.item.name %>
+            <!-- 他の商品情報も表示可能 -->
+            <br>
+          <% end %>
+        </td>
+        <td><%= link_to '詳細', public_order_path(order) %></td>
+      </tr>
+    <% end %>
+  <% else %>
+    <tr>
+      <td colspan="4">注文がありません。</td>
+    </tr>
+  <% end %>
+</tbody>
+
+
+
+
+
+</table>
