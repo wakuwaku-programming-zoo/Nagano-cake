@@ -4,17 +4,19 @@ class Public::OrdersController < ApplicationController
   end
 
   def create
-   @order = Order.new(order_params) 
-   @order.save
-  redirect_to public_orders_complete_path
+    @order = Order.new(order_params)
+    @order.customer = @customer
+    @order.save
+    redirect_to public_orders_complete_path
+
   end
-  
+
   def check
     @cart_items = current_customer.cart_items # カート内のアイテムを取得
     @order = current_customer.orders.build(order_params)
     # 選択された支払い方法とお届け先を @order に設定
     @order.payment_method = params[:order][:payment_method]
-    
+
     # @address = ShippingAddress.find(params[:order][:shipping_address_id])
     if params[:order][:select_address] == "0"
       @order.postcode = current_customer.postcode
@@ -31,17 +33,19 @@ class Public::OrdersController < ApplicationController
       @order.address = @address.address
       @order.name = @address.name
     end
-    
+
   end
 
   def complete
   end
 
   def index
+    @orders = current_customer.orders
   end
 
   def show
-  end  
+    @order = Order.find(params[:id])
+  end
 
 
   private
