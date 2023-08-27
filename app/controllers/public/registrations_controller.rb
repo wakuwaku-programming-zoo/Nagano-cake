@@ -9,7 +9,7 @@ class Public::RegistrationsController < Devise::RegistrationsController
     if resource.errors.any?
       flash[:error] = resource.errors.full_messages.join(', ')
       flash[:registration_params] = params[:customer] # 空のままのフォームデータを保持
-      new_customer_registration_path # 登録失敗時は再度登録画面を表示
+      render :new # 登録失敗時は再度登録画面を表示
     else
       public_customers_mypage_path # 登録成功時はマイページにリダイレクト
     end
