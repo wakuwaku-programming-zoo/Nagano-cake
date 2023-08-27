@@ -29,7 +29,9 @@
           <%= item.name %><br>
           ￥<%= item.price %>
           <p class="<%= item.is_sales_status ? '' : 'text-danger' %>">
-          <%= item.is_sales_status ? "販売中" : "売切れ" %>
+
+          <%= item.is_sales_status ? "" : "売切れ" %>
+
           </p>
         </div>
         <% end %>
