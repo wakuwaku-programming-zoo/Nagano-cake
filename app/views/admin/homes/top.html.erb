@@ -25,7 +25,7 @@
                <% end %>
                <%= @total_quantity %>
               </td>
-              <td><%= order.status %></td>
+              <td><%= display_order_status(order.status) %></td>
           </tr>
         <% end %>
       </tbody>
