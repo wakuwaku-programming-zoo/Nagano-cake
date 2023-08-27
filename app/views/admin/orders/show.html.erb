@@ -2,7 +2,7 @@
 <h4>注文履歴詳細</h4>
   <div class="row">
   <table class="table table-borderless">
-     <tr><th>購入者</th><td><%= @order.name %></td></tr>
+     <tr><th>購入者</th><td><%= @order.customer.last_name %> <%= @order.customer.first_name %></td></tr>
      <tr><th>注文日</th><td><%= @order.created_at.strftime('%Y/%m/%d') %></td></tr>
      <tr><th>配送先</th><td>〒<%= @order.postcode %><%= @order.address %><br><%= @order.name %></td></tr>
      <tr><th>支払方法</th><td><%= display_payment_method(@order.payment_method) %></td></tr>
@@ -35,9 +35,9 @@
            <% @order.order_details.each do |order_detail| %>
             <tr>
               <td><%= order_detail.item.name %></td>
-              <td><%= order_detail.item.with_tax_price %></td>
-              <td><%= order_detail.quantity %></td>
-              <td><%= order_detail.item.with_tax_price * order_detail.quantity %></td>
+              <td><%= order_detail.item.with_tax_price %>円</td>
+              <td><%= order_detail.quantity %>個</td>
+              <td><%= order_detail.item.with_tax_price * order_detail.quantity %>円</td>
               <td>
                <%= form_with(model: order_detail, url: admin_order_detail_path, method: :patch) do |f| %>
                 <%= f.select :making_status, OrderDetail.making_statuses.keys.map { |status| [I18n.t("enums.order_details.making_status.#{status}"), status] }, class: "form-control" %>
@@ -52,9 +52,9 @@
    </div>
    <div class="col-4">
        <table class="table table-borderless">
-      <tr><th>商品合計</th><td><%= @order.total_amount %></td></tr>
-      <tr><th>送料</th><td>800</td></tr>
-      <tr><th>請求金額合計</th><td><%= @order.total_amount + 800 %></td></tr>
+      <tr><th>商品合計</th><td><%= @order.total_amount - @order.postage %>円</td></tr>
+      <tr><th>送料</th><td><%= @order.postage %>円</td></tr>
+      <tr><th>請求金額合計</th><td><%= @order.total_amount %>円</td></tr>
         </table>
   </div>
  </div>

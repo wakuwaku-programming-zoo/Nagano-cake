@@ -20,6 +20,8 @@ class Public::CartItemsController < ApplicationController
   def index
     @cart_items = current_customer.cart_items # カート内の商品を取得する
     @total = 0
+    @cart_empty = @cart_items.empty?
+
   end
 
   # カート内の商品を更新
