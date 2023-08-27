@@ -47,6 +47,7 @@
         <div class="row">
           <!--3つまでに表示でとめる-->
           <% @items.take(3).each do |item| %>
+
             <div class="col-md-4"><!-- col-md-4 クラスを追加して3つのカードが横に並ぶように -->
               <div class="card" style="width: 18rem;">
                 <%= link_to public_item_path(item.id) do %>
@@ -64,6 +65,7 @@
           <% end %>
         </div>
      </div>
+
 
       <div class="container" style="padding-bottom: 70px;">
         <div class="row">
